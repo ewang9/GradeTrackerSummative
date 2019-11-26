@@ -1,0 +1,31 @@
+GRADE TRACKER
+
+Possible functions:
+Insert grades 
+Be able to insert final grade of entire course, insert grades for various assignments/projects/tests where they also put in a percentage of how much it is worth
+If they don’t know how much the mark is worth, use our preset values to calculate the worth depending on what type of mark it is (e.g assignment, project, test, exam, etc)
+
+Exam: 10-20%
+Summative: 10-20%
+Test: Varies, rough estimate: 5-10%
+Quiz: Varies, rough estimate: 5%
+Big project: 10-15%
+small project: 5%
+
+Manage your grades based on different courses
+Table that sorts your grades
+Calculate average from given grades
+Find the mean, median
+Find best and worst mark
+Find what needs improvement
+Progress tracker: Shows how your grades have changed over time
+Graph, percentage increase/decrease
+Store data in separate text file
+Can be done in a GUI
+Save information to a text file that can be read and written to
+https://www.baeldung.com/java-write-to-file
+Make easy to navigate, visually appealing to some degree, 
+Add some visual effects, congratulate/root for the user
+
+
+

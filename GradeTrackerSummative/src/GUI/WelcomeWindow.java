@@ -10,7 +10,7 @@ package GUI;
  * @author S331460873
  */
 public class WelcomeWindow extends javax.swing.JFrame {
-
+    public boolean insert = true;
     /**
      * Creates new form WelcomeWindow
      */
@@ -101,11 +101,17 @@ public class WelcomeWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Go to select file, set a variable to keep track of choice
+        java.awt.EventQueue.invokeLater(() -> {
+            new SelectFile(true).setVisible(true);
+        });
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Same as other button but different variable value
+              java.awt.EventQueue.invokeLater(() -> {
+                    new SelectFile(false).setVisible(true);
+                });
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

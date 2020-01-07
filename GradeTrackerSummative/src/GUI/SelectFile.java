@@ -9,12 +9,13 @@ package GUI;
  * @author S331460873
  */
 public class SelectFile extends javax.swing.JFrame {
-
+    boolean insert;
     /**
      * Creates new form SelectFile
      */
-    public SelectFile() {
+    public SelectFile(boolean i) {
         initComponents();
+        this.insert = i;
     }
 
     /**
@@ -49,6 +50,11 @@ public class SelectFile extends javax.swing.JFrame {
         jButton1.setText("New File");
 
         jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,6 +111,16 @@ public class SelectFile extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //this.notifyAll();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new WelcomeWindow().setVisible(true);
+            }
+        });
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -135,7 +151,7 @@ public class SelectFile extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SelectFile().setVisible(true);
+                new SelectFile(true).setVisible(true);
             }
         });
     }

@@ -4,18 +4,19 @@ Make new course/remove course disabled if analyzing
 After choice made, go to grades menu if inserting/editing, or output analysis if analyzing
  */
 package GUI;
-
+import java.io.File;
 /**
  *
  * @author S331460873
  */
 public class ListCourses extends javax.swing.JFrame {
-
+    File file;
     /**
      * Creates new form ListCourses
      */
-    public ListCourses() {
+    public ListCourses(String FilePath) {
         initComponents();
+        this.file = new File(FilePath);
     }
 
     /**
@@ -151,11 +152,11 @@ public class ListCourses extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListCourses().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new ListCourses(file).setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

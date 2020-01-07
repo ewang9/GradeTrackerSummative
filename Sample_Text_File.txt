@@ -1,0 +1,10 @@
+Possible Course:
+	Assignment Name: Grade Earned: Weight Percentage
+	Assignment Name: Grade Earned: Weight Percentage
+	Assignment Name: Grade Earned: Weight Percentage
+	Assignment Name: Grade Earned: Weight Percentage
+	Assignment Name: Grade Earned: Weight Percentage
+	Assignment Name: Grade Earned: Weight Percentage
+	Assignment Name: Grade Earned: Weight Percentage
+	Assignment Name: Grade Earned: Weight Percentage
+	

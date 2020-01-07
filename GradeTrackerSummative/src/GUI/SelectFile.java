@@ -5,6 +5,8 @@
 package GUI;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+import java.io.IOException;
 /**
  *
  * @author S331460873
@@ -142,11 +144,34 @@ public class SelectFile extends javax.swing.JFrame {
                 new ListCourses(FilePath).setVisible(true);
             }
         });
+       this.dispose();
     }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "Text files", "txt");
+    chooser.setFileFilter(filter);
+    int returnVal = chooser.showSaveDialog(this);
+    if(returnVal == JFileChooser.APPROVE_OPTION) {
+       System.out.println("You chose to save the file under: " +
+            chooser.getSelectedFile().getName());
+       try {
+           File newFile = new File(chooser.getSelectedFile().getPath()+".txt");
+           newFile.createNewFile();
+           java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ListCourses(newFile.getPath()).setVisible(true);
+            }
+        });
+           this.dispose();
+       }
+       catch (IOException e){
+           e.printStackTrace();
+           System.exit(0);
+       }
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

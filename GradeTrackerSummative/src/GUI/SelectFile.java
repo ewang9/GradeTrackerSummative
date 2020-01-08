@@ -158,7 +158,10 @@ public class SelectFile extends javax.swing.JFrame {
        System.out.println("You chose to save the file under: " +
             chooser.getSelectedFile().getName());
        try {
-           File newFile = new File(chooser.getSelectedFile().getPath()+".txt");
+           File newFile;
+           if (chooser.getSelectedFile().getPath().endsWith(".txt")){
+               newFile = new File(chooser.getSelectedFile().getPath());
+           } else newFile = new File(chooser.getSelectedFile().getPath() + ".txt");
            newFile.createNewFile();
            java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

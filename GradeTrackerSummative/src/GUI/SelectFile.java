@@ -155,8 +155,6 @@ public class SelectFile extends javax.swing.JFrame {
     chooser.setFileFilter(filter);
     int returnVal = chooser.showSaveDialog(this);
     if(returnVal == JFileChooser.APPROVE_OPTION) {
-       System.out.println("You chose to save the file under: " +
-            chooser.getSelectedFile().getName());
        try {
            File newFile;
            if (chooser.getSelectedFile().getPath().endsWith(".txt")){

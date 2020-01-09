@@ -3,6 +3,12 @@
  */
 package GUI;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  *
  * @author S331460873
@@ -46,6 +52,11 @@ public class GradesMenu extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jList1);
 
         jToggleButton1.setText("Edit Assignment");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         jToggleButton2.setText("Remove Assignment");
 
@@ -113,6 +124,10 @@ public class GradesMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -146,6 +161,35 @@ public class GradesMenu extends javax.swing.JFrame {
                 new GradesMenu().setVisible(true);
             }
         });
+    }
+    
+    public void readFile(){
+        //Add String path parameter later
+        try {
+            File testFile = new File("P:\\ICS4U\\Test\\test.txt");
+            //Remove this string, replace it with path variable later
+            BufferedReader br = new BufferedReader(new FileReader(testFile));
+            
+            String line;
+            
+            while ((line = br.readLine()) != null) {
+                if (line.startsWith(" ")){
+                    String[] data = line.trim().split("-");
+                    System.out.println("Assignment name: " + data[0]);
+                    System.out.println("Grade: " + Integer.parseInt(data[1]));
+                    System.out.println("Weight: " + Integer.parseInt(data[2]));
+                }
+                else {
+                    System.out.println("Course: " + line);
+                }
+            } 
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

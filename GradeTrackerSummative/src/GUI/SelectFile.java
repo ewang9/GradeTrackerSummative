@@ -138,10 +138,9 @@ public class SelectFile extends javax.swing.JFrame {
        System.out.println("You chose to open this file: " +
             chooser.getSelectedFile().getName());
        System.out.println(chooser.getSelectedFile().getPath());
-       FilePath = chooser.getSelectedFile().getPath();
        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListCourses(FilePath).setVisible(true);
+                new ListCourses(chooser.getSelectedFile().getPath()).setVisible(true);
             }
         });
        this.dispose();

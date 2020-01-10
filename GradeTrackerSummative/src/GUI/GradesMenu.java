@@ -14,12 +14,13 @@ import java.io.IOException;
  * @author S331460873
  */
 public class GradesMenu extends javax.swing.JFrame {
-
+    String file;
     /**
      * Creates new form GradesMenu
      */
-    public GradesMenu() {
+    public GradesMenu(String filePath) {
         initComponents();
+        this.file = filePath;
     }
 
     /**
@@ -156,17 +157,17 @@ public class GradesMenu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GradesMenu().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new GradesMenu("").setVisible(true);
+//            }
+//        });
     }
     
     public void readFile(){
         //Add String path parameter later
         try {
-            File testFile = new File("P:\\ICS4U\\Test\\test.txt");
+            File testFile = new File(file);
             //Remove this string, replace it with path variable later
             BufferedReader br = new BufferedReader(new FileReader(testFile));
             

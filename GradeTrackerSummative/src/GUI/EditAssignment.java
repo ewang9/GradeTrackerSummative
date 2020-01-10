@@ -10,15 +10,17 @@ package GUI;
  * @author S331460873
  */
 public class EditAssignment extends javax.swing.JFrame {
-
+    
+    String file;
     /**
      * Creates new form EditAssignment
      */
-    public EditAssignment() {
+    public EditAssignment(String filePath) {
         initComponents();
         jLabel4.setVisible(false);
         jTextField3.setVisible(false);
         this.setAlwaysOnTop(true);
+        this.file = filePath;
     }
 
     /**
@@ -178,7 +180,7 @@ public class EditAssignment extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GradesMenu().setVisible(true);
+                new GradesMenu(file).setVisible(true);
             }
         });
         this.dispose();

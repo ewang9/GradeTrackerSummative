@@ -4,25 +4,51 @@ Make new course/remove course disabled if analyzing
 After choice made, go to grades menu if inserting/editing, or output analysis if analyzing
  */
 package GUI;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import java.util.Vector;
         
 /**
  *
  * @author S331460873
  */
 public class ListCourses extends javax.swing.JFrame {
-    File file;
+     String file;
+     
     private JList<String> coursesList;
     /**
      * Creates new form ListCourses
      */
-    public ListCourses(String FilePath) {
+    public ListCourses(String filePath) {
         initComponents();
-        this.file = new File(FilePath);
+        this.file = filePath;
+        Vector<String> courses = new Vector();
+        try {
+            File testFile = new File(filePath);
+            BufferedReader br = new BufferedReader(new FileReader(testFile));
+            
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (!(line.startsWith(" "))){
+                    courses.add(line);
+                }
+            } 
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+        }
+        jList1.setListData(courses);
+        jList1.revalidate();
     }
 
     /**
@@ -236,7 +262,7 @@ public class ListCourses extends javax.swing.JFrame {
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new GradesMenu().setVisible(true);
+                new GradesMenu(file).setVisible(true);
             }
         });
         this.dispose();
@@ -246,11 +272,11 @@ public class ListCourses extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-          public void run() {
-               new ListCourses("").setVisible(true);
-           }
-       });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//          public void run() {
+//               new ListCourses("").setVisible(true);
+//           }
+//       });
     
     }
 

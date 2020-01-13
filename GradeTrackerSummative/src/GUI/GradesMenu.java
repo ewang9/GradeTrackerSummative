@@ -8,6 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Vector;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -21,8 +26,28 @@ public class GradesMenu extends javax.swing.JFrame {
     public GradesMenu(String filePath) {
         initComponents();
         this.file = filePath;
+        Vector<String> grades = new Vector();
+        try{
+            File testFile = new File(filePath);
+            BufferedReader br = new BufferedReader(new FileReader(testFile));
+            
+            String line;
+            while ((line = br.readLine()) != null){
+                if (line.startsWith(" ")){
+                    grades.add(line);
+                }
+            }
+                    
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
     }
-
+        jList1.setListData(grades);
+        jList1.revalidate();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

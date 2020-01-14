@@ -14,6 +14,7 @@ import javax.swing.JList;
 import javax.swing.JFrame;  
 import javax.swing.SwingUtilities;
 import java.util.Vector;
+import javax.swing.ListModel;
         
 /**
  *
@@ -22,14 +23,15 @@ import java.util.Vector;
 public class ListCourses extends javax.swing.JFrame {
      String file;
      
-    private JList<String> coursesList;
+    Vector<String> courseList = new Vector();
+    Vector<String> courseChanges = new Vector();
     /**
      * Creates new form ListCourses
      */
     public ListCourses(String filePath) {
         initComponents();
         this.file = filePath;
-        Vector<String> courses = new Vector();
+        courseList.add("All courses");
         try {
             File testFile = new File(filePath);
             BufferedReader br = new BufferedReader(new FileReader(testFile));
@@ -37,7 +39,7 @@ public class ListCourses extends javax.swing.JFrame {
             String line;
             while ((line = br.readLine()) != null) {
                 if (!(line.startsWith(" "))){
-                    courses.add(line);
+                    courseList.add(line);
                 }
             } 
         }
@@ -47,8 +49,8 @@ public class ListCourses extends javax.swing.JFrame {
         catch (IOException e){
             System.out.println("IO Exception");
         }
-        jList1.setListData(courses);
-        jList1.revalidate();
+        jList1.setListData(courseList);
+        courseChanges = courseList;
     }
 
     /**
@@ -243,14 +245,29 @@ public class ListCourses extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        dlm2.addElement(jList1.getSelectedValue());
-        jList2.setModel(dlm2);
+        if (jList1.getSelectedIndex() == 0){
+            Vector<String> temp = courseList;
+            temp.remove(0);
+            jList2.setListData(temp);
+            jList1.setListData(new Vector());
+        }
+        else {
+            dlm2.addElement(jList1.getSelectedValue());
+            jList2.setModel(dlm2);
+            courseChanges.remove(jList1.getSelectedValue());
+            jList1.setListData(courseChanges);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        String[] selected = new String[jList2.getModel().getSize()];
+        for (int i = 0;i<jList2.getModel().getSize();i++){
+            selected[i] = jList2.getModel().getElementAt(i);
+        }
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new GradesMenu(file).setVisible(true);
+                new GradesMenu(file, selected).setVisible(true);
             }
         });
         this.dispose();

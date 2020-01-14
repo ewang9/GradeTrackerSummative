@@ -23,21 +23,31 @@ public class GradesMenu extends javax.swing.JFrame {
     /**
      * Creates new form GradesMenu
      */
-    public GradesMenu(String filePath) {
+    public GradesMenu(String filePath, String[] courses) {
         initComponents();
         this.file = filePath;
         Vector<String> grades = new Vector();
         try{
             File testFile = new File(filePath);
-            BufferedReader br = new BufferedReader(new FileReader(testFile));
             
-            String line;
-            while ((line = br.readLine()) != null){
-                if (line.startsWith(" ")){
-                    grades.add(line);
+            for (int i = 0; i < courses.length; i++){
+                BufferedReader br = new BufferedReader(new FileReader(testFile));
+                String line;
+                line = br.readLine();
+                while (line != null){
+                    if (!(line.startsWith(" ")) && line.equalsIgnoreCase(courses[i])){
+                        while ((line = br.readLine()) != null && line.startsWith(" ")){
+                            String[] data = line.trim().split("-");
+                            grades.add(data[0] + ": Mark: " + Integer.parseInt(data[1]) + "%, Weight: " + Integer.parseInt(data[2]) + "%");
+                        }
+                        break;
+                    }
+                    else {
+                        line = br.readLine();
+                        continue;
+                    }
                 }
             }
-                    
         }
         catch (FileNotFoundException e){
             System.out.println("File not found");
@@ -46,7 +56,6 @@ public class GradesMenu extends javax.swing.JFrame {
             System.out.println("IO Exception");
     }
         jList1.setListData(grades);
-        jList1.revalidate();
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -12,13 +12,15 @@ package GUI;
 public class EditAssignment extends javax.swing.JFrame {
     
     String file;
+    String[] courses;
     /**
      * Creates new form EditAssignment
      */
-    public EditAssignment(String filePath) {
+    public EditAssignment(String filePath, String[] courseList) {
         initComponents();
         this.setAlwaysOnTop(true);
         this.file = filePath;
+        courses = courseList;
     }
 
     /**
@@ -161,7 +163,7 @@ public class EditAssignment extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GradesMenu(file).setVisible(true);
+                new GradesMenu(file, courses).setVisible(true);
             }
         });
         this.dispose();
@@ -199,11 +201,11 @@ public class EditAssignment extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-       java.awt.EventQueue.invokeLater(new Runnable() {
-           public void run() {
-               new EditAssignment("").setVisible(true);
-            }
-        });
+//       java.awt.EventQueue.invokeLater(new Runnable() {
+//           public void run() {
+//               new EditAssignment("").setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

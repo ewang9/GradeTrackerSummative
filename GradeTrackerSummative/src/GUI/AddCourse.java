@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import java.io.FileWriter;
+
+
 /**
  *
  * @author nickp
@@ -14,8 +17,10 @@ public class AddCourse extends javax.swing.JFrame {
     /**
      * Creates new form AddCourse1
      */
-    public AddCourse() {
+    public AddCourse(String filePath) {
         initComponents();
+      
+        
     }
 
     /**
@@ -42,6 +47,11 @@ public class AddCourse extends javax.swing.JFrame {
         jLabel1.setText("Course Code:");
 
         jToggleButton1.setText("Add Course");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         jToggleButton2.setText("Back");
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +111,9 @@ public class AddCourse extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void clearFields(){
+        jTextField1.setText(null);
+    }
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
@@ -109,6 +122,19 @@ public class AddCourse extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+
+        String newcourse = jTextField1.getText().toString();
+        try{
+            FileWriter writer = new FileWriter("test.txt", true);
+            writer.write(newcourse);
+            writer.close();
+        }catch (Exception e){
+            System.out.println("Incorrect!");
+        }
+        clearFields();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,7 +167,7 @@ public class AddCourse extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddCourse().setVisible(true);
+                new AddCourse("").setVisible(true);
             }
         });
     }

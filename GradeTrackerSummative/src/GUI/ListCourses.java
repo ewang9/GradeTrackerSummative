@@ -218,7 +218,7 @@ public class ListCourses extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new AddCourse().setVisible(true);
+                new AddCourse("").setVisible(true);
             }
         });
         this.dispose();

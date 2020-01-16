@@ -13,13 +13,13 @@ import java.io.FileWriter;
  * @author nickp
  */
 public class AddCourse extends javax.swing.JFrame {
-
+    String file;
     /**
      * Creates new form AddCourse1
      */
     public AddCourse(String filePath) {
         initComponents();
-      
+        file = filePath;
         
     }
 
@@ -117,7 +117,7 @@ public class AddCourse extends javax.swing.JFrame {
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new ListCourses("").setVisible(true);
+                new ListCourses(file).setVisible(true);
             }
         });
         this.dispose();
@@ -127,7 +127,7 @@ public class AddCourse extends javax.swing.JFrame {
 
         String newcourse = jTextField1.getText().toString();
         try{
-            FileWriter writer = new FileWriter("test.txt", true);
+            FileWriter writer = new FileWriter(file, true);
             writer.write(newcourse);
             writer.close();
         }catch (Exception e){

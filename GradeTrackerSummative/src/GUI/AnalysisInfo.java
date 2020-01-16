@@ -5,17 +5,74 @@
  */
 package GUI;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Vector;
+import java.util.ArrayList;
+
 /**
  *
  * @author S331460873
  */
 public class AnalysisInfo extends javax.swing.JFrame {
-
+    String file;
     /**
      * Creates new form AnalysisInfo
      */
-    public AnalysisInfo() {
+    public AnalysisInfo(String filePath, String[] courses) {
         initComponents();
+        file = filePath;
+        int highest = -1;
+        int lowest = 101;
+        Vector<String> grades = new Vector();
+        ArrayList<Integer> marks = new ArrayList();
+        ArrayList<Integer> weights = new ArrayList();
+        try{
+            File testFile = new File(filePath);
+            
+            for (int i = 0; i < courses.length; i++){
+                BufferedReader br = new BufferedReader(new FileReader(testFile));
+                String line;
+                line = br.readLine();
+                while (line != null){
+                    if (!(line.startsWith(" ")) && line.equalsIgnoreCase(courses[i])){
+                        while ((line = br.readLine()) != null && line.startsWith(" ")){
+                            String[] data = line.trim().split("-");
+                            grades.add(data[0] + ": Mark: " + Integer.parseInt(data[1]) + "%, Weight: " + Integer.parseInt(data[2]) + "%");
+                            marks.add(Integer.parseInt(data[1]));
+                            weights.add(Integer.parseInt(data[2]));
+                            if (Integer.parseInt(data[1]) > highest) highest = Integer.parseInt(data[1]);
+                            if (Integer.parseInt(data[2]) < lowest) lowest = Integer.parseInt(data[2]);
+                        }
+                        break;
+                    }
+                    else {
+                        line = br.readLine();
+                        continue;
+                    }
+                }
+            }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+    }
+        jList1.setListData(grades);
+        jLabel5.setText("Your highest mark is: " + highest + "%");
+        jLabel6.setText("Your lowest mark is: " + lowest + "%");
+        jLabel7.setText("The range of your marks is: " + (highest - lowest) + "%");
+        float mean = 0;
+        for (int i = 0;i<marks.size();i++){
+            mean += ((float) weights.get(i) / 100) * marks.get(i);
+        }
+        jLabel2.setText("Your average (mean) is: " + mean);
+        int median = marks.get(marks.size()/2);
+        jLabel3.setText("Your median grade is: " + median);
     }
 
     /**
@@ -150,7 +207,11 @@ public class AnalysisInfo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ListCourses(file).setVisible(true);
+            }
+        });
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -183,7 +244,7 @@ public class AnalysisInfo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AnalysisInfo().setVisible(true);
+                new AnalysisInfo("", new String[1]).setVisible(true);
             }
         });
     }

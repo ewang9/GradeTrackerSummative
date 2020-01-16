@@ -65,6 +65,18 @@ public class EditAssignment extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
         jButton1.setBackground(new java.awt.Color(255, 102, 255));
         jButton1.setText("Confirm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +95,11 @@ public class EditAssignment extends javax.swing.JFrame {
 
         jToggleButton1.setBackground(new java.awt.Color(255, 102, 255));
         jToggleButton1.setText("Clear");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,10 +185,26 @@ public class EditAssignment extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    private void clearFields(){
+        jTextField1.setText(null);
+        jTextField2.setText(null);
+        
+        
+    }
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
 
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        clearFields();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,11 +234,11 @@ public class EditAssignment extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-//       java.awt.EventQueue.invokeLater(new Runnable() {
-//           public void run() {
-//               new EditAssignment("").setVisible(true);
-//            }
-//        });
+       java.awt.EventQueue.invokeLater(new Runnable() {
+           public void run() {
+               new EditAssignment("",new String[1]).setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -221,3 +254,4 @@ public class EditAssignment extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
+    

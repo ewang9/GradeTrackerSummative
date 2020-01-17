@@ -138,7 +138,7 @@ public class AddCourse extends javax.swing.JFrame {
         String newcourse = jTextField1.getText().toString();
         try{
             FileWriter writer = new FileWriter(file, true);
-            writer.write(newcourse);
+            writer.write("\n" + newcourse);
             writer.close();
         }catch (Exception e){
             System.out.println("Incorrect!");

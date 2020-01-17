@@ -78,7 +78,7 @@ public class AnalysisInfo extends javax.swing.JFrame {
         mean = Math.round(mean * 100.0) / 100.0;
         jLabel2.setText("Your average (mean) is: " + mean + "%");
         int median = marks.get(marks.size()/2);
-        jLabel3.setText("Your median grade is: " + median + "%");
+        jLabel4.setText("Your median grade is: " + median + "%");
     }
 
     /**

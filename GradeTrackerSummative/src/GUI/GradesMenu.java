@@ -20,12 +20,14 @@ import javax.swing.SwingUtilities;
  */
 public class GradesMenu extends javax.swing.JFrame {
     String file;
+    String[] courseList;
     /**
      * Creates new form GradesMenu
      */
     public GradesMenu(String filePath, String[] courses) {
         initComponents();
         this.file = filePath;
+        courseList = courses;
         Vector<String> grades = new Vector();
         try{
             File testFile = new File(filePath);
@@ -173,7 +175,7 @@ public class GradesMenu extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new EditAssignment("", new String[1]).setVisible(true);
+                new EditAssignment(file, courseList).setVisible(true);
             }
         });
         this.dispose();

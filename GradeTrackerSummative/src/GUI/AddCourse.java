@@ -147,7 +147,7 @@ public class AddCourse extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new ListCourses("").setVisible(true);
+                new ListCourses(file, analyze).setVisible(true);
             }
         });
         this.dispose();

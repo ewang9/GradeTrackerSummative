@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
 import java.util.ArrayList;
+import java.lang.Math;
 
 /**
  *
@@ -45,7 +46,7 @@ public class AnalysisInfo extends javax.swing.JFrame {
                             marks.add(Integer.parseInt(data[1]));
                             weights.add(Integer.parseInt(data[2]));
                             if (Integer.parseInt(data[1]) > highest) highest = Integer.parseInt(data[1]);
-                            if (Integer.parseInt(data[2]) < lowest) lowest = Integer.parseInt(data[2]);
+                            if (Integer.parseInt(data[1]) < lowest) lowest = Integer.parseInt(data[1]);
                         }
                         break;
                     }
@@ -66,13 +67,18 @@ public class AnalysisInfo extends javax.swing.JFrame {
         jLabel5.setText("Your highest mark is: " + highest + "%");
         jLabel6.setText("Your lowest mark is: " + lowest + "%");
         jLabel7.setText("The range of your marks is: " + (highest - lowest) + "%");
-        float mean = 0;
-        for (int i = 0;i<marks.size();i++){
-            mean += ((float) weights.get(i) / 100) * marks.get(i);
+        int totalWeight = 0;
+        for (int i : weights){
+            totalWeight += i;
         }
-        jLabel2.setText("Your average (mean) is: " + mean);
+        double mean = 0; 
+        for (int i = 0;i<marks.size();i++){
+            mean += ((double) weights.get(i) / (double) totalWeight) * marks.get(i);
+        }
+        mean = Math.round(mean * 100.0) / 100.0;
+        jLabel2.setText("Your average (mean) is: " + mean + "%");
         int median = marks.get(marks.size()/2);
-        jLabel3.setText("Your median grade is: " + median);
+        jLabel3.setText("Your median grade is: " + median + "%");
     }
 
     /**
@@ -154,14 +160,14 @@ public class AnalysisInfo extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(60, 60, 60)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                .addGap(44, 44, 44)
                                 .addComponent(jLabel4))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(65, 65, 65)
                                 .addComponent(jLabel6)))
-                        .addGap(0, 72, Short.MAX_VALUE))))
+                        .addGap(72, 72, 72))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,6 +218,7 @@ public class AnalysisInfo extends javax.swing.JFrame {
                 new ListCourses(file, true).setVisible(true);
             }
         });
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

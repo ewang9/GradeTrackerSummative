@@ -23,9 +23,7 @@ public class ListCourses extends javax.swing.JFrame {
      
     Vector<String> courseList = new Vector();
     Vector<String> courseChanges = new Vector();
-    /**
-     * Creates new form ListCourses
-     */
+    
     public ListCourses(String filePath, boolean analysis) {
         initComponents();
         this.analyze = analysis;

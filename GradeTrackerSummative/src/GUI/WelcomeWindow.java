@@ -10,7 +10,7 @@ package GUI;
  * @author S331460873
  */
 public class WelcomeWindow extends javax.swing.JFrame {
-    public boolean insert = true;
+    public boolean analyze = true;
     /**
      * Creates new form WelcomeWindow
      */
@@ -106,7 +106,7 @@ public class WelcomeWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(() -> {
-            new SelectFile(true).setVisible(false);
+            new SelectFile(false).setVisible(true);
         });
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

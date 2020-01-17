@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package GUI;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 /**
  *
  * @author S331460873
@@ -22,7 +27,7 @@ public class EditAssignment extends javax.swing.JFrame {
         this.file = filePath;
         courses = courseList;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,7 +63,7 @@ public class EditAssignment extends javax.swing.JFrame {
         jLabel3.setText("Weight: ");
 
         jComboBox1.setMaximumRowCount(5);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2.5% - quiz", "5% - small project/quiz", "10% - big project/test", "15% - summative/exam", "20% - summative/exam", "30% - exam" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5% - small project/quiz", "10% - big project/test", "15% - summative/exam", "20% - summative/exam", "25% - summative/exam", "30% - exam" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -174,7 +179,23 @@ public class EditAssignment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // EDIT TEXT FILE WITH GIVEN INFO
+        ArrayList<String> fileText = new ArrayList();
+        try{
+            File testFile = new File(file);
+                BufferedReader br = new BufferedReader(new FileReader(testFile));
+                String line;
+                while ((line = br.readLine()) != null){
+                    fileText.add(line);
+                }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+        }
+        //fileText now contains entire file
+        //fileText.add assignment in correct spot or edit the line
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

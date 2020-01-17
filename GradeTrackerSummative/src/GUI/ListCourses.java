@@ -19,14 +19,16 @@ import java.util.Vector;
  */
 public class ListCourses extends javax.swing.JFrame {
      String file;
+     boolean analyze = true;
      
     Vector<String> courseList = new Vector();
     Vector<String> courseChanges = new Vector();
     /**
      * Creates new form ListCourses
      */
-    public ListCourses(String filePath) {
+    public ListCourses(String filePath, boolean analysis) {
         initComponents();
+        this.analyze = analysis;
         this.file = filePath;
         courseList.add("All courses");
         try {
@@ -217,7 +219,7 @@ public class ListCourses extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new AddCourse(file).setVisible(true);
+                new AddCourse(file, analyze).setVisible(true);
             }
         });
         this.dispose();
@@ -261,12 +263,20 @@ public class ListCourses extends javax.swing.JFrame {
         for (int i = 0;i<jList2.getModel().getSize();i++){
             selected[i] = jList2.getModel().getElementAt(i);
         }
-        
+        if (analyze == false) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
                 new GradesMenu(file, selected).setVisible(true);
             }
         });
+        }
+        else {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run(){
+                new AnalysisInfo(file, selected).setVisible(true);
+            }
+        });
+        }
         this.dispose();
     }//GEN-LAST:event_jToggleButton2ActionPerformed
     

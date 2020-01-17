@@ -106,14 +106,14 @@ public class WelcomeWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(() -> {
-            new SelectFile(true).setVisible(true);
+            new SelectFile(true).setVisible(false);
         });
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
               java.awt.EventQueue.invokeLater(() -> {
-                    new SelectFile(false).setVisible(true);
+                    new SelectFile(true).setVisible(true);
                 });
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -182,7 +182,7 @@ public class GradesMenu extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable(){
             public void run(){
-                new ListCourses("").setVisible(true);
+                new ListCourses(file, false).setVisible(true);
             }
         
     });

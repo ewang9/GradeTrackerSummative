@@ -12,14 +12,14 @@ import java.io.IOException;
  * @author S331460873
  */
 public class SelectFile extends javax.swing.JFrame {
-    boolean insert;
+    boolean analyze;
     String FilePath;
     /**
      * Creates new form SelectFile
      */
     public SelectFile(boolean i) {
         initComponents();
-        this.insert = i;
+        this.analyze = i;
     }
 
     /**
@@ -142,7 +142,7 @@ public class SelectFile extends javax.swing.JFrame {
        System.out.println(chooser.getSelectedFile().getPath());
        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListCourses(chooser.getSelectedFile().getPath()).setVisible(true);
+                new ListCourses(chooser.getSelectedFile().getPath(), analyze).setVisible(true);
             }
         });
        this.dispose();
@@ -164,7 +164,7 @@ public class SelectFile extends javax.swing.JFrame {
            newFile.createNewFile();
            java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListCourses(newFile.getPath()).setVisible(true);
+                new ListCourses(newFile.getPath(), analyze).setVisible(true);
             }
         });
            this.dispose();

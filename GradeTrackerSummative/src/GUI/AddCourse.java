@@ -14,13 +14,14 @@ import java.io.FileWriter;
  */
 public class AddCourse extends javax.swing.JFrame {
     String file;
+    boolean analyze;
     /**
      * Creates new form AddCourse1
      */
-    public AddCourse(String filePath) {
+    public AddCourse(String filePath, boolean i) {
         initComponents();
         file = filePath;
-        
+        analyze = i;
     }
 
     /**
@@ -126,7 +127,7 @@ public class AddCourse extends javax.swing.JFrame {
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new ListCourses(file).setVisible(true);
+                new ListCourses(file, analyze).setVisible(true);
             }
         });
         this.dispose();
@@ -187,7 +188,7 @@ public class AddCourse extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddCourse("").setVisible(true);
+                new AddCourse("", true).setVisible(true);
             }
         });
     }

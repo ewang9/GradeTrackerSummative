@@ -1,6 +1,5 @@
 Physics
- Lab 1-085-005
- Test 1-090-010
+ Lab 1-20-5
  Test 2-080-010
 Chemistry
  Lab 1-092-005

@@ -8,8 +8,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.PrintWriter;
 /**
  *
  * @author S331460873
@@ -18,14 +20,31 @@ public class EditAssignment extends javax.swing.JFrame {
     
     String file;
     String[] courses;
+    String previousAssignment = "";
+    String assignmentName = "";
+    boolean createNew = false;
     /**
      * Creates new form EditAssignment
      */
-    public EditAssignment(String filePath, String[] courseList) {
+    public EditAssignment(String filePath, String[] courseList, String lastAssignment, boolean newAssignment) {
         initComponents();
         this.setAlwaysOnTop(true);
         this.file = filePath;
         courses = courseList;
+        previousAssignment = lastAssignment;
+        jLabel4.setVisible(false);
+        createNew = newAssignment;
+    }
+    
+    public EditAssignment(String filePath, String[] courseList, String assignment) {
+        initComponents();
+        this.setAlwaysOnTop(true);
+        this.file = filePath;
+        courses = courseList;
+        assignmentName = assignment;
+        String[] data = assignment.trim().split(":");
+        jTextField1.setText(data[0]);
+        jLabel4.setVisible(false);
     }
     
     /**
@@ -47,6 +66,7 @@ public class EditAssignment extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +126,9 @@ public class EditAssignment extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel4.setText("Please make sure the mark is correct.");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -125,7 +148,9 @@ public class EditAssignment extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(250, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(105, 105, 105)
                 .addComponent(jButton1)
@@ -133,7 +158,7 @@ public class EditAssignment extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(44, 44, 44)
                 .addComponent(jToggleButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +174,8 @@ public class EditAssignment extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -179,6 +205,7 @@ public class EditAssignment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean fail = false;
         ArrayList<String> fileText = new ArrayList();
         try{
             File testFile = new File(file);
@@ -194,8 +221,46 @@ public class EditAssignment extends javax.swing.JFrame {
         catch (IOException e){
             System.out.println("IO Exception");
         }
-        //fileText now contains entire file
-        //fileText.add assignment in correct spot or edit the line
+        int index = 0;
+        
+            String[] data = previousAssignment.trim().split(":");
+            for (String i : fileText) {
+                if (i.startsWith(" " + data[0])){
+                    try {
+                        if (Integer.parseInt(jTextField2.getText()) < 0 || Integer.parseInt(jTextField2.getText()) > 100){
+                            throw new NumberFormatException();
+                        }
+                        index = fileText.indexOf(i);
+                    }
+                    catch (NumberFormatException e) {
+                        jLabel4.setVisible(true);
+                        fail = true;
+                        break;
+                    }
+                    break;
+                }
+            }
+            if (!fail) {
+            fileText.add(index+1, " " + jTextField1.getText() + "-" + Integer.parseInt(jTextField2.getText()) + "-" + ((jComboBox1.getSelectedIndex() + 1) * 5));
+            if (!createNew) fileText.remove(index);
+        try{
+            PrintWriter pw = new PrintWriter(file);
+            pw.close();
+            FileWriter writer = new FileWriter(file, true);
+            for (String i : fileText) {
+                writer.write(i + "\n");
+            }
+            writer.close();
+        }catch (Exception e){
+            System.out.println("Incorrect!");
+        }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GradesMenu(file, courses).setVisible(true);
+            }
+        });
+        this.dispose();
+            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -255,11 +320,11 @@ public class EditAssignment extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-       java.awt.EventQueue.invokeLater(new Runnable() {
-           public void run() {
-               new EditAssignment("",new String[1]).setVisible(true);
-            }
-        });
+//       java.awt.EventQueue.invokeLater(new Runnable() {
+//           public void run() {
+//               new EditAssignment("",new String[1]).setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -269,6 +334,7 @@ public class EditAssignment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

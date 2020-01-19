@@ -7,7 +7,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -99,6 +102,11 @@ public class GradesMenu extends javax.swing.JFrame {
 
         jToggleButton2.setBackground(new java.awt.Color(255, 102, 255));
         jToggleButton2.setText("Remove Assignment");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(255, 102, 255));
         jButton2.setText("Back");
@@ -110,6 +118,11 @@ public class GradesMenu extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 102, 255));
         jButton1.setText("New assignment");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -175,7 +188,7 @@ public class GradesMenu extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new EditAssignment(file, courseList).setVisible(true);
+                new EditAssignment(file, courseList, jList1.getSelectedValue()).setVisible(true);
             }
         });
         this.dispose();
@@ -190,6 +203,60 @@ public class GradesMenu extends javax.swing.JFrame {
     });
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        //remove
+        ArrayList<String> fileText = new ArrayList();
+        try{
+            File testFile = new File(file);
+                BufferedReader br = new BufferedReader(new FileReader(testFile));
+                String line;
+                while ((line = br.readLine()) != null){
+                    fileText.add(line);
+                }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+        }
+        
+            String[] data = jList1.getSelectedValue().trim().split(":");
+            for (String i : fileText) {
+                if (i.startsWith(" " + data[0])){
+                    fileText.remove(i);
+                    break;
+                }
+            }
+            try{
+            PrintWriter pw = new PrintWriter(file);
+            pw.close();
+            FileWriter writer = new FileWriter(file, true);
+            for (String i : fileText) {
+                writer.write(i + "\n");
+            }
+            writer.close();
+        }catch (Exception e){
+            System.out.println("Incorrect!");
+        }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GradesMenu(file, courseList).setVisible(true);
+            }
+        });
+        this.dispose();
+            
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run(){
+                new EditAssignment(file, courseList, jList1.getSelectedValue(), true).setVisible(true);
+            }
+        });
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

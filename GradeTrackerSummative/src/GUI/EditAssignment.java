@@ -32,6 +32,9 @@ public class EditAssignment extends javax.swing.JFrame {
         this.file = filePath;
         courses = courseList;
         previousAssignment = lastAssignment;
+        if (previousAssignment == null) {
+            previousAssignment = courseList[0];
+        }
         jLabel4.setVisible(false);
         createNew = newAssignment;
     }

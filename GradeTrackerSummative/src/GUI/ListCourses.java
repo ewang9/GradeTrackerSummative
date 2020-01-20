@@ -52,6 +52,8 @@ public class ListCourses extends javax.swing.JFrame {
         }
         jList1.setListData(courseList);
         courseChanges = new Vector(courseList);
+        jLabel2.setVisible(false);
+        jLabel3.setVisible(false);
     }
 
     /**
@@ -74,6 +76,8 @@ public class ListCourses extends javax.swing.JFrame {
         jList2 = new javax.swing.JList<>();
         jButton5 = new javax.swing.JButton();
         jToggleButton2 = new javax.swing.JToggleButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,6 +141,12 @@ public class ListCourses extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("Please select a course before using this function");
+
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText("Please add a course before continuing");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -164,13 +174,13 @@ public class ListCourses extends javax.swing.JFrame {
                                 .addGap(43, 43, 43)))))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jToggleButton1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jToggleButton1)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -195,7 +205,11 @@ public class ListCourses extends javax.swing.JFrame {
                 .addComponent(jToggleButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jToggleButton2)
-                .addGap(74, 74, 74))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel3)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -246,100 +260,116 @@ public class ListCourses extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if (jList1.getSelectedIndex() == 0){
-            Vector<String> temp = courseList;
-            temp.remove(0);
-            jList2.setListData(temp);
-            jList1.setListData(new Vector());
-        }
-        else {
-            dlm2.addElement(jList1.getSelectedValue());
-            jList2.setModel(dlm2);
-            courseChanges.remove(jList1.getSelectedValue());
-            jList1.setListData(courseChanges);
+        if (jList1.getSelectedValue() != null) {
+            if (jList1.getSelectedIndex() == 0){
+                Vector<String> temp = courseList;
+                temp.remove(0);
+                jList2.setListData(temp);
+                jList1.setListData(new Vector());
+                jButton5.setEnabled(false);
+            }
+            else {
+                dlm2.addElement(jList1.getSelectedValue());
+                jList2.setModel(dlm2);
+                courseChanges.remove(jList1.getSelectedValue());
+                jList1.setListData(courseChanges);
+            }
+        } else {
+            jLabel2.setVisible(true);
+            jLabel3.setVisible(false);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        String[] selected = new String[jList2.getModel().getSize()];
-        for (int i = 0;i<jList2.getModel().getSize();i++){
-            selected[i] = jList2.getModel().getElementAt(i);
-        }
-        if (analyze == false) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run(){
-                new GradesMenu(file, selected).setVisible(true);
+        if (jList2.getModel().getSize() != 0) {
+            String[] selected = new String[jList2.getModel().getSize()];
+            for (int i = 0;i<jList2.getModel().getSize();i++){
+                selected[i] = jList2.getModel().getElementAt(i);
             }
-        });
-        }
-        else {
+            if (analyze == false) {
             java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run(){
-                new AnalysisInfo(file, selected).setVisible(true);
+                public void run(){
+                    new GradesMenu(file, selected).setVisible(true);
+                }
+            });
             }
-        });
+            else {
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run(){
+                    new AnalysisInfo(file, selected).setVisible(true);
+                }
+            });
+            }
+            this.dispose();
+        } else {
+            jLabel3.setVisible(true);
+            jLabel2.setVisible(false);
         }
-        this.dispose();
+        
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        //removing courses
-        ArrayList<String> fileText = new ArrayList();
-        try{
-            File testFile = new File(file);
-                BufferedReader br = new BufferedReader(new FileReader(testFile));
-                String line;
-                while ((line = br.readLine()) != null){
-                    fileText.add(line);
-                }
-        }
-        catch (FileNotFoundException e){
-            System.out.println("File not found");
-        }
-        catch (IOException e){
-            System.out.println("IO Exception");
-        }
-        try{
-            int count = 0;
-            int index = 0;
-            File testFile = new File(file);
-                BufferedReader br = new BufferedReader(new FileReader(testFile));
-                String line;
-                while ((line = br.readLine()) != null){
-                    if (line.equalsIgnoreCase(jList1.getSelectedValue())){
-                        count += 1;
-                        index = fileText.indexOf(line);
-                        while ((line = br.readLine()) != null && line.startsWith(" ")){
+        if (jList1.getSelectedValue() != null) {
+            ArrayList<String> fileText = new ArrayList();
+            try{
+                File testFile = new File(file);
+                    BufferedReader br = new BufferedReader(new FileReader(testFile));
+                    String line;
+                    while ((line = br.readLine()) != null){
+                        fileText.add(line);
+                    }
+            }
+            catch (FileNotFoundException e){
+                System.out.println("File not found");
+            }
+            catch (IOException e){
+                System.out.println("IO Exception");
+            }
+            try{
+                int count = 0;
+                int index = 0;
+                File testFile = new File(file);
+                    BufferedReader br = new BufferedReader(new FileReader(testFile));
+                    String line;
+                    while ((line = br.readLine()) != null){
+                        if (line.equalsIgnoreCase(jList1.getSelectedValue())){
                             count += 1;
+                            index = fileText.indexOf(line);
+                            while ((line = br.readLine()) != null && line.startsWith(" ")){
+                                count += 1;
+                            }
                         }
                     }
-                }
-                for (int i = 0; i < count; i++){
-                    fileText.remove(index);
-                }
-        }catch (FileNotFoundException e){
-            System.out.println("File not found");
-        }
-        catch (IOException e){
-            System.out.println("IO Exception");
-        }
-        try{
-            PrintWriter pw = new PrintWriter(file);
-            pw.close();
-            FileWriter writer = new FileWriter(file, true);
-            for (String i : fileText) {
-                writer.write(i + "\n");
+                    for (int i = 0; i < count; i++){
+                        fileText.remove(index);
+                    }
+            }catch (FileNotFoundException e){
+                System.out.println("File not found");
             }
-            writer.close();
-        }catch (Exception e){
-            System.out.println("Incorrect!");
-        }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListCourses(file, analyze).setVisible(true);
+            catch (IOException e){
+                System.out.println("IO Exception");
             }
-        });
-        this.dispose();
+            try{
+                PrintWriter pw = new PrintWriter(file);
+                pw.close();
+                FileWriter writer = new FileWriter(file, true);
+                for (String i : fileText) {
+                    writer.write(i + "\n");
+                }
+                writer.close();
+            }catch (Exception e){
+                System.out.println("Incorrect!");
+            }
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new ListCourses(file, analyze).setVisible(true);
+                }
+            });
+            this.dispose();
+        } else {
+            jLabel2.setVisible(true);
+            jLabel3.setVisible(false);
+        }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
     
     /**
@@ -359,6 +389,8 @@ public class ListCourses extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;

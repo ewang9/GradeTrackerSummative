@@ -36,6 +36,7 @@ public class EditAssignment extends javax.swing.JFrame {
             previousAssignment = courseList[0];
         }
         jLabel4.setVisible(false);
+        jLabel5.setVisible(false);
         createNew = newAssignment;
     }
     
@@ -48,6 +49,7 @@ public class EditAssignment extends javax.swing.JFrame {
         String[] data = assignment.trim().split(":");
         jTextField1.setText(data[0]);
         jLabel4.setVisible(false);
+        jLabel5.setVisible(false);
     }
     
     /**
@@ -220,7 +222,7 @@ public class EditAssignment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jTextField1.getText() != "" && jTextField1.getText() != null) {
+        if (!jTextField1.getText().equals("") && !jTextField1.getText().equals(null) && !jTextField2.getText().equals("") && !jTextField2.getText().equals(null)) {
         boolean fail = false;
         ArrayList<String> fileText = new ArrayList();
         try{
@@ -258,7 +260,7 @@ public class EditAssignment extends javax.swing.JFrame {
                 }
             }
             if (!fail) {
-            fileText.add(index+1, " " + jTextField1.getText() + "-" + Integer.parseInt(jTextField2.getText()) + "-" + ((jComboBox1.getSelectedIndex() + 1) * 5));
+            fileText.add((index+1), " " + jTextField1.getText() + "-" + Integer.parseInt(jTextField2.getText()) + "-" + ((jComboBox1.getSelectedIndex() + 1) * 5));
             if (!createNew) fileText.remove(index);
         try{
             PrintWriter pw = new PrintWriter(file);

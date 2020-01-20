@@ -6,6 +6,7 @@
 package GUI;
 
 import java.io.FileWriter;
+import java.io.File;
 
 
 /**
@@ -138,7 +139,9 @@ public class AddCourse extends javax.swing.JFrame {
         String newcourse = jTextField1.getText().toString();
         try{
             FileWriter writer = new FileWriter(file, true);
-            writer.write("\n" + newcourse);
+            File textFile = new File(file);
+            if (textFile.length() == 0) writer.write(newcourse);
+            else writer.write("\n" + newcourse);
             writer.close();
         }catch (Exception e){
             System.out.println("Incorrect!");

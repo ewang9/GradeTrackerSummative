@@ -8,9 +8,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import java.util.Vector;
+import javax.swing.text.Position;
 
         
 /**
@@ -22,7 +26,7 @@ public class ListCourses extends javax.swing.JFrame {
      boolean analyze = true;
      
     Vector<String> courseList = new Vector();
-    Vector<String> courseChanges = new Vector();
+    Vector<String> courseChanges;
     
     public ListCourses(String filePath, boolean analysis) {
         initComponents();
@@ -47,7 +51,7 @@ public class ListCourses extends javax.swing.JFrame {
             System.out.println("IO Exception");
         }
         jList1.setListData(courseList);
-        courseChanges = courseList;
+        courseChanges = new Vector(courseList);
     }
 
     /**
@@ -76,11 +80,6 @@ public class ListCourses extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Courses", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "ICS4U", "FIF4U", "SPH4U", "ENG4U", "SCH4U", "MHF4U" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jList1ValueChanged(evt);
@@ -101,6 +100,11 @@ public class ListCourses extends javax.swing.JFrame {
 
         jToggleButton1.setBackground(new java.awt.Color(255, 102, 255));
         jToggleButton1.setText("Remove a course");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(255, 102, 255));
         jButton4.setText("Back");
@@ -277,6 +281,66 @@ public class ListCourses extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        //removing courses
+        ArrayList<String> fileText = new ArrayList();
+        try{
+            File testFile = new File(file);
+                BufferedReader br = new BufferedReader(new FileReader(testFile));
+                String line;
+                while ((line = br.readLine()) != null){
+                    fileText.add(line);
+                }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+        }
+        try{
+            int count = 0;
+            int index = 0;
+            File testFile = new File(file);
+                BufferedReader br = new BufferedReader(new FileReader(testFile));
+                String line;
+                while ((line = br.readLine()) != null){
+                    if (line.equalsIgnoreCase(jList1.getSelectedValue())){
+                        count += 1;
+                        index = fileText.indexOf(line);
+                        while ((line = br.readLine()) != null && line.startsWith(" ")){
+                            count += 1;
+                        }
+                    }
+                }
+                for (int i = 0; i < count; i++){
+                    fileText.remove(index);
+                }
+        }catch (FileNotFoundException e){
+            System.out.println("File not found");
+        }
+        catch (IOException e){
+            System.out.println("IO Exception");
+        }
+        try{
+            PrintWriter pw = new PrintWriter(file);
+            pw.close();
+            FileWriter writer = new FileWriter(file, true);
+            for (String i : fileText) {
+                writer.write(i + "\n");
+            }
+            writer.close();
+        }catch (Exception e){
+            System.out.println("Incorrect!");
+        }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ListCourses(file, analyze).setVisible(true);
+            }
+        });
+        this.dispose();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
     
     /**
      * @param args the command line arguments

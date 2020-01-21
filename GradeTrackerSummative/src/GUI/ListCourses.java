@@ -3,6 +3,8 @@
 Make new course/remove course disabled if analyzing
 After choice made, go to grades menu if inserting/editing, or output analysis if analyzing
  */
+
+//Imports all necessary packages.
 package GUI;
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,13 +23,21 @@ import javax.swing.text.Position;
  *
  * @author S331460873
  */
+
+//Initializes variable 'analyze' and defaults it to true.
+//Initializes a string 'file'.
 public class ListCourses extends javax.swing.JFrame {
      String file;
      boolean analyze = true;
-     
+
+//An array that you can change the size of.
+//Array list.
     Vector<String> courseList = new Vector();
     Vector<String> courseChanges;
-    
+
+//Equates the previous string "FilePath" to the string "File".
+//Reads from the previously selected file.
+//Reads only the lines from the file that start with a space.
     public ListCourses(String filePath, boolean analysis) {
         initComponents();
         this.analyze = analysis;
@@ -44,12 +54,17 @@ public class ListCourses extends javax.swing.JFrame {
                 }
             } 
         }
+//Catches two exceptions and sends an error message.
+//Once caught, the program proceeds.
         catch (FileNotFoundException e){
             System.out.println("File not found");
         }
         catch (IOException e){
             System.out.println("IO Exception");
         }
+//If an error is caught.
+//Sets the two red error messages to visible depending on which error is caught.
+//If no error is caught, sets the parameter to false to make them invisible.
         jList1.setListData(courseList);
         courseChanges = new Vector(courseList);
         jLabel2.setVisible(false);
@@ -232,12 +247,14 @@ public class ListCourses extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//Opens the 'AddCourse' window if 'New Course' button is selected.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
                 new AddCourse(file, analyze).setVisible(true);
             }
         });
+//Closes this window.
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -249,6 +266,7 @@ public class ListCourses extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jList2ValueChanged
 
+//Opens the 'SelectFile' window is 'Back' button is selected.
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable(){
             public void run(){
@@ -256,6 +274,7 @@ public class ListCourses extends javax.swing.JFrame {
                 
             }
         });
+//Closes this window.
               this.dispose();  
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -375,6 +394,8 @@ public class ListCourses extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+//Used only if this 'ListCourses' window is to be opened on it's own.
+//Mainly used during testing to not have to redo everything to reach this page.
     public static void main(String args[]) {
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //          public void run() {

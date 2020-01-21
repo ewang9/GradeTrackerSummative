@@ -9,6 +9,8 @@ package GUI;
  *
  * @author S331460873
  */
+
+//Initializes the variable and defaults it to true.
 public class WelcomeWindow extends javax.swing.JFrame {
     public boolean analyze = true;
     /**
@@ -104,23 +106,30 @@ public class WelcomeWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//Once the 'Analyze Marks' button is pressed, page closes and opens the SelectFile page.
+//The parameter is false to remember to analyze the marks instead of editing.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(() -> {
             new SelectFile(false).setVisible(true);
         });
+//Closes the window.
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+//Happens when the 'Edit Marks' is pressed.
+//The parameter is true to remeber to edit the marks and not analyze them now.
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
               java.awt.EventQueue.invokeLater(() -> {
                     new SelectFile(true).setVisible(true);
                 });
+//Closes the window
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
      */
+//Main class required to run the windown without any previous commands executed.
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

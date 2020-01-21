@@ -2,6 +2,8 @@
     Select a file or create a new file, then move to list courses
  
  */
+
+//Imports all necessary packages.
 package GUI;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -11,12 +13,17 @@ import java.io.IOException;
  *
  * @author S331460873
  */
+
+//Initializes the variable analyze.
+//Initializes a string 'FilePath'.
 public class SelectFile extends javax.swing.JFrame {
     boolean analyze;
     String FilePath;
     /**
      * Creates new form SelectFile
      */
+    
+//Takes the boolean variable wether 'Edit Marks' or 'Analyze Marks' was selected.
     public SelectFile(boolean i) {
         initComponents();
         this.analyze = i;
@@ -121,6 +128,9 @@ public class SelectFile extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//If 'Back' button is pressed.
+//Sets 'Welcome Window' to an empty string and makes it visible. 
+//Closes 'Select File' window and open a new 'Welcome' window.
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -130,6 +140,10 @@ public class SelectFile extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+//File selector.
+//Opens a file explorer from which the user selects a file.
+//Opens a new windown every time 'Select File' is chosen.
+//Gets the file path and refers to it throughout the rest of the project.
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         JFileChooser chooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -145,10 +159,14 @@ public class SelectFile extends javax.swing.JFrame {
                 new ListCourses(chooser.getSelectedFile().getPath(), analyze).setVisible(true);
             }
         });
+//Closes the file explorer window once a file has been chosen.
        this.dispose();
     }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+//Open file explorer.
+//User can create a new file.
+//User selects 'Save' when file is created.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JFileChooser chooser = new JFileChooser();
     FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -167,8 +185,11 @@ public class SelectFile extends javax.swing.JFrame {
                 new ListCourses(newFile.getPath(), analyze).setVisible(true);
             }
         });
+//Closes the file explorer window.
            this.dispose();
        }
+//Catches and overides and IOExceptions associated with the file creation.
+//Exits the system if an IOException is thrown.
        catch (IOException e){
            e.printStackTrace();
            System.exit(0);
@@ -204,13 +225,14 @@ public class SelectFile extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(SelectFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+//Used only if this 'Select File' window is to be opened on it's own.
+//Mainly used during testing to not have to redo everything to reach this page.
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
+ //       java.awt.EventQueue.invokeLater(new Runnable() {
+ //           public void run() {
 //                new SelectFile(true).setVisible(true);
 //            }
-//        });
+//       });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

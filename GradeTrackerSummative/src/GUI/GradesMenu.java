@@ -3,6 +3,7 @@
  */
 package GUI;
 
+//Imports all necessary packages.
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,6 +22,9 @@ import javax.swing.SwingUtilities;
  *
  * @author S331460873
  */
+
+//Initializes string with name file.
+//Initializes an empty string named courseList.
 public class GradesMenu extends javax.swing.JFrame {
     String file;
     String[] courseList;

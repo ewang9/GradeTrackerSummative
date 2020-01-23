@@ -5,6 +5,7 @@
  */
 package GUI;
 
+//Imports all necessary packages.
 import java.io.FileWriter;
 import java.io.File;
 
@@ -13,6 +14,9 @@ import java.io.File;
  *
  * @author nickp
  */
+
+//Initializes previouslt use strings.
+//Sets 'analyze' analyze which detects dependencies within various items.
 public class AddCourse extends javax.swing.JFrame {
     String file;
     boolean analyze;
@@ -122,9 +126,12 @@ public class AddCourse extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//Clears all text fields.
     private void clearFields(){
         jTextField1.setText(null);
     }
+
+//Closes 'Add Course' page and opens 'List Courses' page.
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
@@ -134,6 +141,8 @@ public class AddCourse extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
+//Writes the new course name to the file.
+//Throws error message if the parameters for the new course are not met.
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
 
         String newcourse = jTextField1.getText().toString();
@@ -156,6 +165,7 @@ public class AddCourse extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
+//Adds the functionality to the 'Clear' button to clear the text field.
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
         clearFields();
     }//GEN-LAST:event_jToggleButton3ActionPerformed

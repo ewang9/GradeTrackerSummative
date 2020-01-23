@@ -5,6 +5,7 @@
  */
 package GUI;
 
+//Imports all necessary packages.
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +24,7 @@ public class AnalysisInfo extends javax.swing.JFrame {
     /**
      * Creates new form AnalysisInfo
      */
+//Initializes strings used in previous forms.
     public AnalysisInfo(String filePath, String[] courses) {
         initComponents();
         file = filePath;
@@ -33,7 +35,8 @@ public class AnalysisInfo extends javax.swing.JFrame {
         ArrayList<Integer> weights = new ArrayList();
         try{
             File testFile = new File(filePath);
-            
+
+//Only takes data that stars with a particular character such as a space or no space at all.
             for (int i = 0; i < courses.length; i++){
                 BufferedReader br = new BufferedReader(new FileReader(testFile));
                 String line;
@@ -63,6 +66,8 @@ public class AnalysisInfo extends javax.swing.JFrame {
         catch (IOException e){
             System.out.println("IO Exception");
     }
+//Mathematical operations.
+//Formats the output.
         jList1.setListData(grades);
         jLabel5.setText("Your highest mark is: " + highest + "%");
         jLabel6.setText("Your lowest mark is: " + lowest + "%");
@@ -218,6 +223,8 @@ public class AnalysisInfo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+//Closes 'Analysis Info' page and opens 'List Courses' page.
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ListCourses(file, true).setVisible(true);

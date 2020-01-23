@@ -31,6 +31,12 @@ public class GradesMenu extends javax.swing.JFrame {
     /**
      * Creates new form GradesMenu
      */
+
+//Equates the previous string "FilePath" to the string "File".
+//Reads from the previously selected file.
+//Reads only the lines from the file that do not start with a space.
+//Formats the data with function line.trim().
+//Adds the data from the text file data set using formats such as Mark, Weight, etc.
     public GradesMenu(String filePath, String[] courses) {
         initComponents();
         this.file = filePath;
@@ -58,12 +64,16 @@ public class GradesMenu extends javax.swing.JFrame {
                 }
             }
         }
+//Catches and handle exceptions such as FileNotFound.
         catch (FileNotFoundException e){
             System.out.println("File not found");
         }
         catch (IOException e){
             System.out.println("IO Exception");
     }
+//Sets the 'grades' data to the list.
+//The error message pops up if the error is caught.
+//In this case, it's false meaning it will be invisvle until the parameter is true.
         jList1.setListData(grades);
         jLabel2.setVisible(false);
     }
@@ -198,6 +208,9 @@ public class GradesMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//Goes to the 'Edit Assignment' Page if the button is pressed.
+//Closes 'Grades Menu' page.
+//If the selected value is anything but null, the red error message pops up in the GUI form.
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         if (jList1.getSelectedValue() != null) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -209,6 +222,7 @@ public class GradesMenu extends javax.swing.JFrame {
         } else jLabel2.setVisible(true);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
+//If 'Back' button is presses, it closes 'Grades Menu' page and opens the 'List Courses' page.
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable(){
             public void run(){
@@ -219,6 +233,9 @@ public class GradesMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+//If the selected value is anything but null, the reader reads the values. 
+//Adds the values to the text file.
+//Catches exceptions.
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         if (jList1.getSelectedValue() != null) {
         ArrayList<String> fileText = new ArrayList();
@@ -236,7 +253,7 @@ public class GradesMenu extends javax.swing.JFrame {
         catch (IOException e){
             System.out.println("IO Exception");
         }
-        
+//Formats the data.
             String[] data = jList1.getSelectedValue().trim().split(":");
             for (String i : fileText) {
                 if (i.startsWith(" " + data[0])){
@@ -244,6 +261,7 @@ public class GradesMenu extends javax.swing.JFrame {
                     break;
                 }
             }
+//Writes the data to the text file.
             try{
             PrintWriter pw = new PrintWriter(file);
             pw.close();
@@ -264,6 +282,9 @@ public class GradesMenu extends javax.swing.JFrame {
         } else jLabel2.setVisible(true);
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
+//If 'Edit Assignment' button is pressed.
+//Open the 'Edit Assignment' page.
+//Closes 'List Courses' page.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
@@ -276,6 +297,8 @@ public class GradesMenu extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+//Code if only this page wants to be run.
+//Used for testing.
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -307,7 +330,8 @@ public class GradesMenu extends javax.swing.JFrame {
 //            }
 //        });
     }
-    
+
+//Reads and formats the data.
     public void readFile(){
         //Add String path parameter later
         try {
@@ -329,6 +353,7 @@ public class GradesMenu extends javax.swing.JFrame {
                 }
             } 
         }
+//Catches various exceptions.
         catch (FileNotFoundException e){
             System.out.println("File not found");
         }
@@ -349,9 +374,6 @@ public class GradesMenu extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
     
-    private void clearFields(){
-        
-    }
 
 }
 

@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+//Imports all necessary packages.
 package GUI;
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,6 +18,10 @@ import java.io.PrintWriter;
  *
  * @author S331460873
  */
+
+//Initializes various strings to be used throughout the code.
+//If the two assignments have the same name and data, nothing is added to the file.
+//If any of the fields are filled out with invalid data, red error messages pop up.
 public class EditAssignment extends javax.swing.JFrame {
     
     String file;
@@ -40,6 +46,8 @@ public class EditAssignment extends javax.swing.JFrame {
         createNew = newAssignment;
     }
     
+//Parses the data and formats it.
+//Sets the error messages to 'false'.
     public EditAssignment(String filePath, String[] courseList, String assignment) {
         initComponents();
         this.setAlwaysOnTop(true);
@@ -221,6 +229,8 @@ public class EditAssignment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//New array is only created if those parameters are met.
+//Errors are caught and handled.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (!jTextField1.getText().equals("") && !jTextField1.getText().equals(null) && !jTextField2.getText().equals("") && !jTextField2.getText().equals(null)) {
         boolean fail = false;
@@ -240,7 +250,8 @@ public class EditAssignment extends javax.swing.JFrame {
             System.out.println("IO Exception");
         }
         int index = 0;
-        
+ 
+//Formats data.
             String[] data = previousAssignment.trim().split(":");
             for (String i : fileText) {
                 if (i.startsWith(" " + data[0])){
@@ -281,12 +292,14 @@ public class EditAssignment extends javax.swing.JFrame {
         this.dispose();
             }
         }
+//Red error messaged are visible.
         else {
             jLabel4.setVisible(true);
             jLabel5.setVisible(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+//Closes 'Edit Assignment' page and opens 'Grades Menu' page. 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -295,6 +308,7 @@ public class EditAssignment extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+//If the 'Clear' button is pressed, all text fields become blank.
     private void clearFields(){
         jTextField1.setText(null);
         jTextField2.setText(null);
@@ -319,6 +333,8 @@ public class EditAssignment extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+//Only used to run the form and this form alone.
+//Used mainly during testing.
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
